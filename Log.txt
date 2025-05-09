@@ -1,0 +1,102 @@
+mysql> CREATE TABLE registrations (
+    ->     reg_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     student_id INT,
+    ->     course_id INT,
+    ->     date DATE NOT NULL,
+    ->     FOREIGN KEY (student_id) REFERENCES students(student_id),
+    ->     FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.02 sec)
+
+mysql> CREATE DATABASE USE university_db;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'USE university_db' at line 1
+mysql> CREATE DATABASE university_db;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| university_db      |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> USE university_db
+Database changed
+mysql> CREATE TABLE registrations (
+    ->     reg_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     student_id INT,
+    ->     course_id INT,
+    ->     date DATE NOT NULL,
+    ->     FOREIGN KEY (student_id) REFERENCES students(student_id),
+    ->     FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'students'
+mysql> REATE TABLE students (
+    ->     student_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     name VARCHAR(255) NOT NULL,
+    ->     email VARCHAR(255) UNIQUE NOT NULL,
+    ->     password VARCHAR(255) NOT NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REATE TABLE students (
+    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    name V' at line 1
+mysql> CREATE TABLE students (
+    ->     student_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     name VARCHAR(255) NOT NULL,
+    ->     email VARCHAR(255) UNIQUE NOT NULL,
+    ->     password VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE courses (
+    ->     course_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     name VARCHAR(255) NOT NULL,
+    ->     instructor VARCHAR(255) NOT NULL,
+    ->     credits INT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE registrations (
+    ->     reg_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     student_id INT,
+    ->     course_id INT,
+    ->     date DATE NOT NULL,
+    ->     FOREIGN KEY (student_id) REFERENCES students(student_id),
+    ->     FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO students (name,email,password) VALUES
+    -> ^C
+mysql> INSERT INTO students (name, email, password) VALUES
+    -> ('Nadeesha Perera', 'nadeesha.perera@example.com', 'nadee2025'),
+    -> ('Kasun Fernando', 'kasun.fernando@example.com', 'kasun@789'),
+    -> ('Ishara Jayasinghe', 'ishara.jayasinghe@example.com', 'ish12345');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO courses (name, instructor, credits) VALUES
+    -> ('Database Systems', 'Dr. Jayawardena', 3),
+    -> ('Web Application Development', 'Ms. Rodrigo', 4),
+    -> ('Mobile Computing', 'Prof. Abeysekera', 3),
+    -> ('Cybersecurity Fundamentals', 'Dr. Madushanka', 3),
+    -> ('Machine Learning', 'Mr. Dissanayake', 4);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
